@@ -1,0 +1,24 @@
+. script/server-variables
+
+if [ $# -ne 1 ]
+then
+	echo "Invalid argument count"
+	return
+fi
+
+CLIENT=$1
+CLIENT_PATH=$KEY_DIRECTORY/$CLIENT
+CLIENT_BASE=$CLIENT_PATH/$CLIENT
+CLIENT_KEY=$CLIENT_BASE.key
+CLIENT_REQUEST=$CLIENT_BASE.csr
+CLIENT_CERTIFICATE=$CLIENT_BASE.crt
+
+export OPENSSL_NAME=$CLIENT
+export OPENSSL_EMAIL_ADDRESS=$OPENSSL_NAME@$OPENSSL_SERVER
+
+mkdir -p $CLIENT_PATH
+
+openssl genrsa -out $CLIENT_KEY $OPENSSL_RSA_BITS
+chmod 600 $CLIENT_KEY
+echo -e "\n\n\n\n\n" | openssl req -config $OPENSSL_CONFIGURATION -new -key $CLIENT_KEY -out $CLIENT_REQUEST
+yes | openssl ca -config $OPENSSL_CONFIGURATION -in $CLIENT_REQUEST -cert $SERVER_CERTIFICATE -keyfile $SERVER_KEY -out $CLIENT_CERTIFICATE -days $OPENSSL_DAYS
