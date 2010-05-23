@@ -1,4 +1,4 @@
-export KEY_DIRECTORY=$KEY_DIRECTORY
+export KEY_DIRECTORY=keys
 export INDEX_PATH=index
 export OTHER_PATH=other
 
