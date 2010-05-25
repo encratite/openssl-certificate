@@ -3,7 +3,7 @@
 if [ $# -ne 1 ]
 then
 	echo "Invalid argument count - the first argument specifies the common name of the infrastructure"
-	return
+	exit
 fi
 
 rm -rf $CERTIFICATE_AUTHORITY_PATH

@@ -3,7 +3,7 @@
 if [ $# -ne 2 ]
 then
 	echo "Invalid argument count - the first argument specifies the base name of the secondary certificate, the second one specifies the PXF password"
-	return
+	exit
 fi
 
 SECONDARY_CERTIFICATE=$1
